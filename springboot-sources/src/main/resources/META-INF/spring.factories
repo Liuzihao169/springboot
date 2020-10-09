@@ -1,0 +1,7 @@
+# Run Listeners
+org.springframework.boot.SpringApplicationRunListener=\
+com.kuake.springboot.listener.MySpringApplicationRunListener
+
+# Application Context Initializers
+org.springframework.context.ApplicationContextInitializer=\
+com.kuake.springboot.listener.MyApplicationContextInitializer

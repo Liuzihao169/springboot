@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    欢迎！你好......
+    开始解析：
+    <hr/>
+    <span th:text="${hello}"></span>
+    <span th:utext="${hello}"></span>
+    <hr/>
+    <span>行内写法</span>
+    <span>[[${hello}]]</span>
+    <span>[(${hello})]</span>
+    <hr/>
+    <p th:each=" list : ${lists}">[[${list}]]</p>
+    <!--如果前面有/标识符，会自动加上项目名称-->
+    <a th:href="@{/abc/bed}"></a>
+    <form th:action="/hello"></form>
+</body>
+</html>

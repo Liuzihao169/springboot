@@ -1,0 +1,17 @@
+##配置连接数据库信息
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql:///springbootidea
+    driver-class-name: com.mysql.jdbc.Driver
+
+  redis:
+    host: 192.168.25.131
+# 日志级别 trace debug info warn error
+logging:
+  level:
+    com.kuake.springboot.mapper: debug
+
+#配置redis
+
