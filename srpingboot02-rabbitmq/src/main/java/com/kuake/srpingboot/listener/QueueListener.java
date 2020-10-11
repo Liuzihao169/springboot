@@ -32,17 +32,4 @@ public class QueueListener{
     public void receive(Map map){
         System.out.println("监听接收到消息"+map);
     }
-
-    @RabbitListener(queues = {"my.amqpAdmin.queue"})
-    /**
-     * @Payload Employee employee  表示消息的载体 (也可不用注解标注)
-     * @Header(AmqpHeaders.CHANNEL) 取Channel信息 (也可不用注解标注)
-     * @Header(AmqpHeaders.DELIVERY_TAG) Long tag 获取消息的标志id
-     * (tag 也可以在方法产生通过注入 Message 然后通过message.getMessageProperties().getDeliveryTag()进行获取)
-     */
-    public void getMessage(@Payload Employee employee,
-                           @Header(AmqpHeaders.CHANNEL) Channel channel1,
-                           @Header(AmqpHeaders.DELIVERY_TAG) Long tag) {
-        System.out.println(employee);
-    }
 }

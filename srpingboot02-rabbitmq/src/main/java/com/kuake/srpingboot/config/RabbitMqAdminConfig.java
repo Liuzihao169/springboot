@@ -14,17 +14,17 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqAdminConfig {
 
     public Queue testQueue() {
-        return new Queue("test-admin1");
+        return new Queue("my.amqpAdmin.queue");
     }
     public DirectExchange myExchange() {
-        return new DirectExchange("directexchange-admin1");
+        return new DirectExchange("my.direct");
     }
     public Binding binding() {
-        return  BindingBuilder.bind(testQueue()).to(myExchange()).with("test-key-admin1");
+        return  BindingBuilder.bind(testQueue()).to(myExchange()).with("my.key");
     }
 
 
-    @Bean
+    // @Bean
     public AmqpAdmin amqpAdmin(ConnectionFactory connectionFactory) {
         AmqpAdmin amqpAdmin =  new RabbitAdmin(connectionFactory);
         amqpAdmin.declareQueue(testQueue());

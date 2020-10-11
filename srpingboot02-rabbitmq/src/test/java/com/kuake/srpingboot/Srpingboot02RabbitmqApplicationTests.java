@@ -82,6 +82,9 @@ public class Srpingboot02RabbitmqApplicationTests {
 		System.out.println(o);
 	}
 
+    /**
+     * 测试发送消息10条
+     */
 	@Test
 	public void testsendObject(){
 		/**
@@ -96,13 +99,11 @@ public class Srpingboot02RabbitmqApplicationTests {
 			amqpTemplate.convertAndSend("my.direct","my.routing",employee);
 		}
 	}
-	@Test
-	public void testreciveObject(){
-		//指定队列的名字，进行接收
-		Object o = amqpTemplate.receiveAndConvert("my.amqpAdmin.queue");
-		System.out.println(o.getClass());
-		System.out.println(o);
-	}
+
+    /**
+     *
+     * 启动容器 测试：初始化队列或交换机的时候使用
+     */
 	@Test
     public void test(){
 
