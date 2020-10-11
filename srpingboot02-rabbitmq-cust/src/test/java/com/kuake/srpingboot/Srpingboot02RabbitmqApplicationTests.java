@@ -76,28 +76,9 @@ public class Srpingboot02RabbitmqApplicationTests {
 		amqpTemplate.convertAndSend("my.direct","my.routing",list);
 	}
 
-	@Test
-	public void testrecive(){
-		//指定队列的名字，进行接收
-		Object o = amqpTemplate.receiveAndConvert("my.amqpAdmin.queue");
-		System.out.println(o);
-	}
 
-	@Test
-	public void testsendObject(){
-		/**
-		 * exchange: 使用发送消息的交换机
-		 * routingKey: 发送消息使用路由的key
-		 * message: 需要发送的消息
-		 *
-		 */
 
-		for(int i=0;i<10;i++){
-			Map<String,Object>map = new HashMap<>();
-			map.put("mag","这是第"+i+"次=====================》hello world");
-			amqpTemplate.convertAndSend("my.direct","my.routing",map);
-		}
-	}
+
 	@Test
 	public void testreciveObject(){
 		//指定队列的名字，进行接收
@@ -105,4 +86,13 @@ public class Srpingboot02RabbitmqApplicationTests {
 		System.out.println(o.getClass());
 		System.out.println(o);
 	}
+
+
+    /**
+     * 启动容器进行监听消息
+     */
+	@Test
+    public void test(){
+     while (true) {}
+    }
 }

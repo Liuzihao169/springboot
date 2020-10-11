@@ -7,18 +7,18 @@ import java.util.Date;
  * @create 2019-06-10 ${TIM}
  */
 public class Employee {
-   private String name;
-   private Integer age;
-   private Date birth;
+    private String name;
+    private Integer age;
+    private String desc;
 
 
     public Employee() {
     }
 
-    public Employee(String name, Integer age, Date birth) {
+    public Employee(String name, Integer age, String desc) {
         this.name = name;
         this.age = age;
-        this.birth = birth;
+        this.desc = desc;
     }
 
     public String getName() {
@@ -37,12 +37,12 @@ public class Employee {
         this.age = age;
     }
 
-    public Date getBirth() {
-        return birth;
+    public String getBirth() {
+        return desc;
     }
 
-    public void setBirth(Date birth) {
-        this.birth = birth;
+    public void setBirth(String desc) {
+        this.desc = desc;
     }
 
     @Override
@@ -50,7 +50,8 @@ public class Employee {
         return "Employee{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", birth=" + birth +
+                ", birth=" + desc +
                 '}';
     }
 }
+
