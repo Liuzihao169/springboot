@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author liuzihao
  * @create 2020-10-08-22:13
@@ -30,6 +33,47 @@ public class RabbitMqConfig {
     public  Binding binding() {
         return  BindingBuilder.bind(testQueue()).to(myExchange()).with("my.key");
     }
+
+    /**
+     * 死信队列、死信交换机
+     * @return
+     */
+    @Bean
+    public Queue testQueueDead() {
+        return new Queue("my.order.dead.queue");
+    }
+    @Bean
+    public DirectExchange myExchangeDead() {
+        return new DirectExchange("my.order.dead.exchange");
+    }
+    @Bean
+    public  Binding bindingDead() {
+        return  BindingBuilder.bind(testQueueDead()).to(myExchangeDead()).with("my.key");
+    }
+
+
+    @Bean
+    public Queue testQueueOrder() {
+        Map<String, Object> args = new HashMap<>();
+        /**
+         * x-dead-letter-exchange , value = '死信交换机的名字'
+         * x-dead-letter-routing-key value='路由key'
+         */
+        args.put("x-dead-letter-exchange","my.order.dead.exchange");
+        args.put("x-dead-letter-routing-key","my.key");
+        //args.put("x-message-ttl",60000); 设置整个队列的过期时间
+        return new Queue("my.amqpAdmin.queue.order",true,false,false, args);
+    }
+    @Bean
+    public DirectExchange myExchangeOrder() {
+        return new DirectExchange("my.direct.order");
+    }
+    @Bean
+    public  Binding bindingOrder() {
+        return  BindingBuilder.bind(testQueueOrder()).to(myExchangeOrder()).with("my.key");
+    }
+
+
 
 
     @Bean

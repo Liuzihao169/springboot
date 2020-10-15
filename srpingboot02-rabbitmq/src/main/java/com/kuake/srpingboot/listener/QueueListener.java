@@ -13,6 +13,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -31,5 +32,14 @@ public class QueueListener{
     )
     public void receive(Map map){
         System.out.println("监听接收到消息"+map);
+    }
+
+    @RabbitListener(queues = {"my.amqpAdmin.queue.order"})
+    public void receive2(@Payload Employee employee,
+                         @Header(AmqpHeaders.CHANNEL) Channel channel1,
+                         @Header(AmqpHeaders.DELIVERY_TAG) Long ta) throws IOException {
+        System.out.println(employee);
+        channel1.basicNack(ta,false,false);
+
     }
 }

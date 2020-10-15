@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -96,9 +97,31 @@ public class Srpingboot02RabbitmqApplicationTests {
 
 		for(int i=0;i<10;i++){
             Employee employee = new Employee("hello"+i, i, "我是消息"+i);
-			amqpTemplate.convertAndSend("my.direct","my.routing",employee);
+			amqpTemplate.convertAndSend("my.direct","my.key",employee);
 		}
 	}
+
+    /**
+     * 测试发送消息10条，带有时间过期
+     */
+    @Test
+    public void testsendObjectExprie(){
+        /**
+         * exchange: 使用发送消息的交换机
+         * routingKey: 发送消息使用路由的key
+         * message: 需要发送的消息
+         *
+         */
+
+        for(int i=0;i<10;i++){
+            Employee employee = new Employee("hello"+i, i, "我是消息"+i);
+            amqpTemplate.convertAndSend("my.direct.order","my.key",employee,message->{
+                message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+                message.getMessageProperties().setExpiration("50000");
+                return message;
+            });
+        }
+    }
 
     /**
      *
@@ -106,6 +129,6 @@ public class Srpingboot02RabbitmqApplicationTests {
      */
 	@Test
     public void test(){
-
+ //   while (true){}
     }
 }
